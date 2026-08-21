@@ -91,20 +91,70 @@ const counterObserver = new IntersectionObserver(
 statNumbers.forEach((el) => counterObserver.observe(el))
 
 /* Technologies marquee */
-const TECHNOLOGIES = [
-  'HTML5', 'CSS3', 'JavaScript', 'React', 'Angular', 'Tailwind CSS',
-  'React Native', 'Android', 'iOS', 'Expo',
-  'Node.js', 'REST APIs', 'Firebase', 'Supabase',
-  'Git', 'GitHub', 'Figma', 'Postman', 'VS Code',
+/* Technologies grid */
+const TECH_GROUPS = [
+  {
+    label: 'Frontend',
+    items: [
+      { name: 'HTML5', icon: 'logos:html-5' },
+      { name: 'CSS3', icon: 'logos:css-3' },
+      { name: 'JavaScript', icon: 'logos:javascript' },
+      { name: 'React', icon: 'logos:react' },
+      { name: 'Angular', icon: 'logos:angular-icon' },
+      { name: 'Tailwind CSS', icon: 'logos:tailwindcss-icon' },
+    ],
+  },
+  {
+    label: 'Mobile',
+    items: [
+      { name: 'React Native', icon: 'logos:react' },
+      { name: 'Android', icon: 'logos:android-icon' },
+      { name: 'iOS', icon: 'logos:apple' },
+      { name: 'Expo', icon: 'logos:expo-icon' },
+    ],
+  },
+  {
+    label: 'Backend',
+    items: [
+      { name: 'Node.js', icon: 'logos:nodejs-icon' },
+      { name: 'REST APIs', icon: 'mdi:api' },
+      { name: 'Firebase', icon: 'logos:firebase' },
+      { name: 'Supabase', icon: 'logos:supabase-icon' },
+    ],
+  },
+  {
+    label: 'Tooling',
+    items: [
+      { name: 'Git', icon: 'logos:git-icon' },
+      { name: 'GitHub', icon: 'logos:github-icon' },
+      { name: 'Figma', icon: 'logos:figma' },
+      { name: 'Postman', icon: 'logos:postman-icon' },
+      { name: 'VS Code', icon: 'logos:visual-studio-code' },
+    ],
+  },
 ]
 
-const marqueeTrack = document.getElementById('marquee-track')
-const buildChips = () =>
-  TECHNOLOGIES.map(
-    (name) => `<span class="tech-chip"><span class="tech-dot"></span>${name}</span>`
-  ).join('')
+const techGroupsContainer = document.getElementById('tech-groups')
 
-marqueeTrack.innerHTML = buildChips() + buildChips()
+techGroupsContainer.innerHTML = TECH_GROUPS.map(
+  (group) => `
+    <div class="tech-group">
+      <h3 class="tech-group-title">${group.label}</h3>
+      <div class="tech-grid">
+        ${group.items
+      .map(
+        ({ name, icon }) => `
+              <div class="tech-tile">
+                <span class="tech-tile-icon">
+                  <img src="https://api.iconify.design/${icon}.svg" alt="" width="20" height="20" loading="lazy" />
+                </span>
+                <span class="tech-tile-name">${name}</span>
+              </div>`
+      )
+      .join('')}
+      </div>
+    </div>`
+).join('')
 
 /* Portfolio filtering */
 const filterButtons = document.querySelectorAll('.filter-btn')
